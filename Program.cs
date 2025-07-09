@@ -7,10 +7,10 @@ namespace TextRpg
     {
         static void Main(string[] args)
         {
-            // 게임 객체 생성
+
             Game game = new Game();
 
-            // 게임 시작
+
             game.Start();
         }
     }
@@ -53,19 +53,16 @@ namespace TextRpg
                 switch (input)
                 {
                     case "1":
-                        // 상태 보기 기능 구현
-                        Console.WriteLine("상태 보기를 선택했습니다.");
-                        Console.ReadKey(); // 아무 키나 누를 때까지 대기
+                        Status();
                         break;
                     case "2":
-                        // 인벤토리 기능 구현
-                        Console.WriteLine("인벤토리를 선택했습니다.");
-                        Console.ReadKey();
+                        // 인벤토리 기능 구현 해야 함
+
+
                         break;
                     case "3":
-                        // 상점 기능 구현
-                        Console.WriteLine("상점을 선택했습니다.");
-                        Console.ReadKey();
+                        // 상점 기능 구현 해야하함
+
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
@@ -74,40 +71,89 @@ namespace TextRpg
                 }
             }
         }
-    }
 
-    public interface IUsable
-    {
-        void Use();
-    }
 
-    public class Item : IUsable
-    {
-        public string ItemName { get; set; }
 
-        public void Use()
+        public void Status()
         {
-            Console.WriteLine("아이템 {0}을 사용했습니다.", ItemName);
+            Console.Clear();
+            Console.WriteLine("상태 보기");
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
+            Console.WriteLine();
+            Console.WriteLine($"Lv. {player.Level:D2}");
+            Console.WriteLine($"{player.Name} ( {player.Job} )");
+            Console.WriteLine($"공격력 : {player.Attack}");
+            Console.WriteLine($"방어력 : {player.Defense}");
+            Console.WriteLine($"체 력 : {player.Health}");
+            Console.WriteLine($"Gold : {player.Gold} G");
+            Console.WriteLine();
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.Write("         >>          ");
+
+            string input = Console.ReadLine();
+
+            if (input == "0")
+            {
+                return;
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+              
+            }
+
+
+
+
         }
-    }
 
-    public class Player
-    {
-        public string Name { get; set; }
 
-        public void UseItem(IUsable item)
+
+
+
+        public interface IUsable
         {
-            item.Use();
+            void Use();
         }
+
+        public class Item : IUsable
+        {
+            public string ItemName { get; set; }
+
+            public void Use()
+            {
+                Console.WriteLine("아이템 {0}을 사용했습니다.", ItemName);
+            }
+        }
+
+        public class Player
+        {
+            public string Name { get; set; }
+            public string Job { get; set; } = "전사";
+            public int Level { get; set; } = 1;
+            public int Attack { get; set; } = 10;
+            public int Defense { get; set; } = 5;
+            public int Health { get; set; } = 100;
+            public int Gold { get; set; } = 1500;
+
+
+
+            public void UseItem(IUsable item)
+            {
+                item.Use();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
     }
-
-    
-
-
-
-
-
-
-
-
 }
