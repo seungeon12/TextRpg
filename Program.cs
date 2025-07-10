@@ -1,5 +1,6 @@
 ﻿using System;
 
+// 깃허브 테스트
 
 namespace TextRpg
 {
