@@ -10,7 +10,6 @@ namespace TextRpg
 
             Game game = new Game();
 
-
             game.Start();
         }
     }
