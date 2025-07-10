@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 // 깃허브 테스트
 
@@ -48,6 +49,7 @@ namespace TextRpg
                 Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 인벤토리");
                 Console.WriteLine("3. 상점");
+                Console.WriteLine("4. 휴식");
                 Console.WriteLine();
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write("         >>          ");
@@ -67,6 +69,10 @@ namespace TextRpg
 
                     case "3":
                         Shop();
+                        break;
+
+                    case "4":                        
+                        Relax();
                         break;
 
                     default:
@@ -271,7 +277,8 @@ namespace TextRpg
                 new ShopItem("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", 0, 15, 3500),
                 new ShopItem("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", 2, 0, 600),
                 new ShopItem("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", 5, 0, 1500),
-                new ShopItem("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", 7, 0, 2000)
+                new ShopItem("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", 7, 0, 2000),
+                new ShopItem("용사의 펜던트", "전대 용사가 가지고 있던 펜던트 입니다. .", 10, 10, 10000)
             };
 
             // 이미 구매한 아이템 표시용
@@ -369,8 +376,68 @@ namespace TextRpg
             }
         }
 
+        //500 G 를 내면 체력을 회복할 수 있습니다. (보유 골드 : 800 G)
 
+        //1. 휴식하기
+        //0. 나가기
 
+        //원하시는 행동을 입력해주세요.
+
+        public void Relax()
+        {
+
+            int RelaxCost = 500;
+            int MaxHealth = 100;
+
+            Console.Clear();
+            Console.WriteLine($"500G 를 내면 체력을 회복할 수 있습니다. (보유골드 : {player.Gold} G)");
+            Console.WriteLine();
+            Console.WriteLine("1 휴식하기");
+            Console.WriteLine();
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.Write("         >>          ");
+
+            string input = Console.ReadLine();
+
+        
+
+            switch (input)
+            {
+                case "1":
+                   
+                    if (player.Gold >= RelaxCost)
+                    {
+                       
+                        player.Gold -= RelaxCost;
+
+                        
+                        player.Health = MaxHealth;
+
+                        Console.WriteLine("휴식을 완료했습니다.");
+                        Console.WriteLine($"체력이 {MaxHealth}으로 회복되었습니다.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Gold가 부족합니다.");
+                    }
+                    Console.ReadKey();
+                    break;
+
+                case "0":
+                    
+                    return; // 메인메뉴로
+
+                default:
+                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.ReadKey();
+                    Relax(); 
+                    break;
+            }
+        }
+        
+        
 
 
 
